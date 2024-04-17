@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="pt-BR" className="bg-orange-100">
       <body className="w-screen h-screen">
         <Header />
-        {children}
+        <main className="h-full m-14">{children}</main>
       </body>
     </html>
   );

@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { LojaLogo } from "../../../public/svg/LojaLogo";
+import Link from "next/link";
 
 export function Header() {
   const pathname = usePathname();
@@ -9,10 +10,14 @@ export function Header() {
 
   return (
     <header className="flex items-center justify-center py-6 bg-orange-500 rounded-b-2xl">
-      <div className="left-4 absolute">
-        {pathname.includes("module") && <LojaLogo />}
+      <div className="absolute left-4">
+        {pathname.includes("module") && (
+          <Link href="/">
+            <LojaLogo />
+          </Link>
+        )}
       </div>
-      <h1 className="text-4xl mx-auto font-bold text-white capitalize">
+      <h1 className="mx-auto text-4xl font-bold text-white capitalize">
         {displayName}
       </h1>
     </header>
