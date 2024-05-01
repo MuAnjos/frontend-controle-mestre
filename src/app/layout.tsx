@@ -13,9 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className="bg-orange-100 h-screen">
+      <body className="h-screen bg-orange-100">
         <Header />
-        <main className="mx-10">{children}</main>
+        <main className="mx-10 h-max">{children}</main>
       </body>
     </html>
   );

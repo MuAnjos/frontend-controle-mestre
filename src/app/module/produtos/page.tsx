@@ -18,13 +18,13 @@ export default function Produtos() {
   }, [search, products]);
 
   return (
-    <div className="h-full">
+    <div className="flex flex-col pt-6">
       <SearchBar
         onChange={(e) => {
           setSearch(e.currentTarget?.value);
         }}
       />
-      <div className="mt-6 overflow-scroll h-4/6">
+      <div className="mt-6 overflow-y-scroll h-[380px]">
         {filteredProducts.map((product) => (
           <Product
             key={product.id}
