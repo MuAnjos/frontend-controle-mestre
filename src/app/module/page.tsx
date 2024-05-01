@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function page() {
   return (
     <div className="flex flex-wrap my-16 xl:mx-40">
-      <div className="flex flex-wrap justify-center gap-16">
+      <div className="flex flex-wrap justify-center gap-12">
         {modules.map((module) => (
           <Link
           key={module.name}

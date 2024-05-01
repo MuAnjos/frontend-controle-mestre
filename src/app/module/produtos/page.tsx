@@ -18,13 +18,13 @@ export default function Produtos() {
   }, [search, products]);
 
   return (
-    <div className="flex flex-col pt-6">
+    <div className="flex flex-col pt-5">
       <SearchBar
         onChange={(e) => {
           setSearch(e.currentTarget?.value);
         }}
       />
-      <div className="mt-6 overflow-y-scroll h-[380px]">
+      <div className="mt-6 overflow-y-scroll max-h-[380px] no-scrollbar">
         {filteredProducts.map((product) => (
           <Product
             key={product.id}
@@ -37,7 +37,7 @@ export default function Produtos() {
           />
         ))}
       </div>
-      <div className="mt-6 text-end">
+      <div className="absolute mt-6 bottom-4 right-10">
         <button className="px-4 py-3 text-xl font-semibold text-white bg-orange-500 rounded-xl hover:bg-orange-600">
           Cadastrar novo produto +
         </button>
