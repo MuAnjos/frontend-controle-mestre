@@ -1,42 +1,47 @@
 "use client";
 
-import { PRODUCTS } from "@/util/constants/Products";
-import Product from "@/components/module/product";
+import { useState } from "react";
+import { DeleteProductModal } from "@/components/module/product/deleteProductModal";
+import { ProductItem } from "@/@types/interfaces/Product";
+import UpdateProductModal from "@/components/module/product/updateProductModal";
 import { SearchBar } from "@/components/module/searchBar";
-import { useEffect, useState } from "react";
+import { Product } from "@/components/module/product";
+import { ProductList } from "@/components/module/product/productList";
 
 export default function Produtos() {
   const [search, setSearch] = useState("");
-  const [products, setProducts] = useState(PRODUCTS);
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [selectedProduct, setSelectedProduct] = useState<ProductItem>();
+  const [modal, setModal] = useState<"removing" | "updating" | "success">();
 
-  useEffect(() => {
-    const filtered = products.filter((product) =>
-      product.name.toUpperCase().includes(search.toUpperCase())
-    );
-    setFilteredProducts(filtered);
-  }, [search, products]);
+  function onDeleteClick(item: ProductItem) {
+    setSelectedProduct(item);
+    setModal("removing");
+  }
+
+  function onUpdateClick(product: ProductItem) {
+    setModal("updating");
+    setSelectedProduct(product);
+  }
 
   return (
     <div className="flex flex-col pt-5">
-      <SearchBar
-        onChange={(e) => {
-          setSearch(e.currentTarget?.value);
-        }}
+      {modal === "removing" && (
+        <DeleteProductModal
+          selectedProduct={selectedProduct?.id!}
+          onClose={() => setModal(undefined)}
+          onFinish={() => setModal("success")}
+        />
+      )}
+      {modal === "updating" && (
+        <UpdateProductModal
+          selectedProduct={selectedProduct!}
+          onClose={() => setModal(undefined)}
+        />
+      )}
+      <ProductList
+        onDeleteClick={onDeleteClick}
+        onUpdateClick={onUpdateClick}
       />
-      <div className="mt-6 overflow-y-scroll max-h-[380px] no-scrollbar">
-        {filteredProducts.map((product) => (
-          <Product
-            key={product.id}
-            onDeleteClick={() => {
-              setProducts((prevProducts) =>
-                prevProducts.filter((p) => p.id !== product.id)
-              );
-            }}
-            product={product}
-          />
-        ))}
-      </div>
       <div className="absolute mt-6 bottom-4 right-10">
         <button className="px-4 py-3 text-xl font-semibold text-white bg-orange-500 rounded-xl hover:bg-orange-600">
           Cadastrar novo produto +

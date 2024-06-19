@@ -20,7 +20,7 @@ export function MessageModal({
         <X />
       </button>
       <Image src={icon} width={150} height={150} alt="Ícone de alerta" />
-      <h2 className="text-white font-bold text-3xl py-6 px-24">{message}</h2>
+      <h2 className="text-white font-bold text-3xl py-6 px-16">{message}</h2>
     </Modal>
   );
 }

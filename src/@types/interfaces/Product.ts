@@ -1,7 +1,10 @@
+import { Category } from "./Category";
+
 export interface ProductItem {
   id: string;
-  name: string;
-  brand: string;
-  code: string;
-  price: string;
+  nome: string;
+  marca: string;
+  categoria: Category;
+  preco: string;
+  codigo: string;
 }
