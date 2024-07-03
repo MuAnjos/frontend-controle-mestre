@@ -1,16 +1,28 @@
 import { Category } from "@/@types/interfaces/Category";
-import React from "react";
+import { getCategories } from "@/service/productsHttp";
+import React, { useEffect, useState } from "react";
 
 interface CategoriesDropdownProps extends React.HTMLProps<HTMLSelectElement> {
+  register?: any;
   productCategory?: Category;
-  categories: Category[]
+  update?: boolean
 }
 
 export function CategoriesDropdown({
-  categories,
+  register,
   productCategory,
+  update,
   ...props
 }: CategoriesDropdownProps) {
+  const [categories, setCategories] = useState<Category[]>([]);
+  useEffect(() => {
+    async function fetchCategories() {
+      const categories = await getCategories();
+      setCategories(categories);
+    }
+    fetchCategories();
+  }, []);
+
   return (
     <div className="bg-white w-1/2 rounded-lg p-2">
       <label
@@ -19,19 +31,19 @@ export function CategoriesDropdown({
       >
         Categoria
       </label>
-      <select
+      {categories.length > 0 && <select
         name="categoriaId"
         id="opcoes"
         className="text-lg font-bold outline-none w-full"
         {...props}
-
+        {...(!update ? register("categoriaId") : { defaultValue: productCategory })}
       >
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
             {category.nome}
           </option>
         ))}
-      </select>
+      </select>}
     </div>
   );
 }

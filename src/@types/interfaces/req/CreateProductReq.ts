@@ -2,6 +2,6 @@ export interface CreateProductReq {
     nome: string,
     marca: string,
     categoriaId: number,
-    preco: number,
+    preco: string,
     cod: string
 }

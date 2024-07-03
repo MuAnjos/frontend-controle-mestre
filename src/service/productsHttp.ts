@@ -48,7 +48,7 @@ export async function createProduct(newProduct: CreateProductReq) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ ...newProduct }),
+    body: JSON.stringify({ ...newProduct}),
   });
   if (response.status !== 200) {
     return { message: "Ocorreu um erro ao criar o produto", error: true };

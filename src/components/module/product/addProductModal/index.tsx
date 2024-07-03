@@ -1,19 +1,17 @@
 import { Modal } from "@/components/UI/modal";
-import React, { useEffect, useState } from "react";
+import { createProduct } from "@/service/productsHttp";
+import React from "react";
 import { X } from "../../../../../public/svg/X";
 import { Input } from "@/components/UI/input";
-import { ProductItem } from "@/@types/interfaces/Product";
-import { createProduct, getCategories } from "@/service/productsHttp";
 import { CategoriesDropdown } from "../updateProductModal/categoriesDropdown";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, Form, FormSubmitHandler, useForm } from "react-hook-form";
 import { CreateProductReq } from "@/@types/interfaces/req/CreateProductReq";
-import { Category } from "@/@types/interfaces/Category";
 
-interface AddProductFields {
+export interface AddProductFields {
     nome: string,
-    codigo: string,
+    cod: string,
     marca: string,
-    preco: number,
+    preco: string,
     categoriaId: number
 }
 
@@ -22,28 +20,18 @@ export default function AddProductModal({
 }: {
     onClose: () => void;
 }) {
-    const [categories, setCategories] = useState<Category[]>([]);
-    useEffect(() => {
-        async function fetchCategories() {
-            const categories = await getCategories();
-            setCategories(categories);
-        }
-        fetchCategories();
-    }, []);
-
-    const { control, handleSubmit } = useForm<AddProductFields>({
+    const { control, register } = useForm<AddProductFields>({
         defaultValues: {
             nome: "",
             marca: "",
-            preco: 0,
-            codigo: "",
-            categoriaId: 0
+            preco: "",
+            cod: "",
         },
     });
 
-    const onSubmit: SubmitHandler<AddProductFields> = (data) => {
-        console.log(data);
-        const nProduct: CreateProductReq = { ...data, cod: data.codigo };
+    const onSubmit: FormSubmitHandler<AddProductFields> = ({ data }) => {
+        const nProduct: CreateProductReq = { ...data };
+        console.log(nProduct);
         createProduct(nProduct);
         onClose();
     }
@@ -61,7 +49,7 @@ export default function AddProductModal({
                     <X />
                 </button>
             </div>
-            <form className="flex flex-col w-full gap-8 pt-16" onSubmit={handleSubmit(onSubmit)}>
+            <Form className="flex flex-col w-full gap-8 pt-16" onSubmit={onSubmit} control={control}>
                 <div className="flex w-full gap-4">
                     <Controller
                         name="nome"
@@ -75,7 +63,7 @@ export default function AddProductModal({
                         />}
                     />
                     <Controller
-                        name="codigo"
+                        name="cod"
                         control={control}
                         rules={{ required: true, minLength: 6 }}
                         render={({ field, fieldState }) => <Input
@@ -101,7 +89,7 @@ export default function AddProductModal({
                     <Controller
                         name="preco"
                         control={control}
-                        rules={{ required: true, pattern: /[^0-9]+/g }}
+                        rules={{ required: true, pattern: /\d+\.?\d*/g }}
                         render={({ field, fieldState }) => <Input
                             label="Preço do produto"
                             id="preco"
@@ -110,15 +98,11 @@ export default function AddProductModal({
                         />}
                     />
                 </div>
-                <Controller
-                    name="categoriaId"
-                    control={control}
-                    render={({ field, fieldState }) => <CategoriesDropdown categories={categories} />}
-                />
+                <CategoriesDropdown register={register} />
                 <button className="p-4 text-xl font-bold text-white bg-orange-500 rounded-xl hover:bg-orange-600 self-end">
                     Confirmar atualização
                 </button>
-            </form>
+            </Form>
         </Modal>
     );
 }
