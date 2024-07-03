@@ -1,4 +1,5 @@
 import { ProductItem } from "@/@types/interfaces/Product";
+import { CreateProductReq } from "@/@types/interfaces/req/CreateProductReq";
 import { queryClient } from "@/components/utils/reactQueryProvider";
 
 export async function getProducts() {
@@ -39,4 +40,19 @@ export async function updateProduct(updatedProduct: ProductItem) {
   }
   queryClient.invalidateQueries({ queryKey: ["products"] });
   return { error: false, message: "Produto atualizado com sucesso!" };
+}
+
+export async function createProduct(newProduct: CreateProductReq) {
+  const response = await fetch("http://localhost:8080/produtos", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ...newProduct }),
+  });
+  if (response.status !== 200) {
+    return { message: "Ocorreu um erro ao criar o produto", error: true };
+  }
+  queryClient.invalidateQueries({ queryKey: ["products"] });
+  return { error: false, message: "Produto criado com sucesso!" };
 }

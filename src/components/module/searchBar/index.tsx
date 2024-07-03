@@ -2,8 +2,10 @@ import { ChangeEvent } from "react";
 
 export function SearchBar({
   onChange,
+  onSearch
 }: {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSearch?: () => void;
 }) {
   return (
     <div className="flex">
@@ -13,7 +15,7 @@ export function SearchBar({
         onChange={onChange}
         type="text"
       />
-      <button className="px-8 py-2 text-xl font-semibold text-white bg-orange-500 rounded-r-xl hover:bg-orange-600">
+      <button className="px-8 py-2 text-xl font-semibold text-white bg-orange-500 rounded-r-xl hover:bg-orange-600" onClick={onSearch}>
         Pesquisar
       </button>
     </div>
