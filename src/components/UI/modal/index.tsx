@@ -26,7 +26,7 @@ export function Modal({
           />
           <dialog
             open
-            className="absolute top-1/2 bottom-1/2 z-10 max-w-[90%]"
+            className="absolute top-1/2 bottom-1/2 z-10 bg-transparent"
             onClose={onClose}
           >
             <div className={className ?? ""}>{children}</div>
