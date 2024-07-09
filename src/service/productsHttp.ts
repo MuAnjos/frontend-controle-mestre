@@ -1,5 +1,5 @@
-import { ProductItem } from "@/@types/interfaces/Product";
 import { CreateProductReq } from "@/@types/interfaces/req/CreateProductReq";
+import { UpdateProductReq } from "@/@types/interfaces/req/UpdateProductReq";
 import { queryClient } from "@/components/utils/reactQueryProvider";
 
 export async function getProducts() {
@@ -27,7 +27,7 @@ export async function deleteProduct(selectedProduct: string) {
   return { error: false, message: "Produto deletado com sucesso!" };
 }
 
-export async function updateProduct(updatedProduct: ProductItem) {
+export async function updateProduct(updatedProduct: UpdateProductReq) {
   const response = await fetch("http://localhost:8080/produtos", {
     method: "PATCH",
     headers: {
@@ -48,7 +48,7 @@ export async function createProduct(newProduct: CreateProductReq) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ ...newProduct}),
+    body: JSON.stringify({ ...newProduct }),
   });
   if (response.status !== 200) {
     return { message: "Ocorreu um erro ao criar o produto", error: true };

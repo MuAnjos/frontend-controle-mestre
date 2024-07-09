@@ -36,7 +36,7 @@ export function CategoriesDropdown({
         id="opcoes"
         className="text-lg font-bold outline-none w-full"
         {...props}
-        {...(!update ? register("categoriaId") : { defaultValue: productCategory })}
+        {...register("categoriaId")}
       >
         {categories.map((category) => (
           <option key={category.id} value={category.id}>
