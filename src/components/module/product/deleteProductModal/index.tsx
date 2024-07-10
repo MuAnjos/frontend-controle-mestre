@@ -9,11 +9,9 @@ import { useState } from "react";
 export function DeleteProductModal({
   selectedProduct,
   onClose,
-  onFinish,
 }: {
   selectedProduct: string;
   onClose: () => void;
-  onFinish: () => void;
 }) {
   const [status, setStatus] = useState<{ message: string; error: boolean }>();
   async function removeProduct() {

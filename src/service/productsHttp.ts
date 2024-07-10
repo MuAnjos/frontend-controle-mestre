@@ -36,7 +36,9 @@ export async function updateProduct(updatedProduct: UpdateProductReq) {
     body: JSON.stringify(updatedProduct),
   });
   if (response.status !== 200) {
-    return { message: "Ocorreu um erro ao atualizar o produto", error: true };
+    const errorResponse = await response.text();
+    const error = JSON.parse(errorResponse);
+    return { message: error.message, error: true };
   }
   queryClient.invalidateQueries({ queryKey: ["products"] });
   return { error: false, message: "Produto atualizado com sucesso!" };
@@ -51,7 +53,9 @@ export async function createProduct(newProduct: CreateProductReq) {
     body: JSON.stringify({ ...newProduct }),
   });
   if (response.status !== 200) {
-    return { message: "Ocorreu um erro ao criar o produto", error: true };
+    const errorResponse = await response.text();
+    const error = JSON.parse(errorResponse);
+    return { message: error.message, error: true };
   }
   queryClient.invalidateQueries({ queryKey: ["products"] });
   return { error: false, message: "Produto criado com sucesso!" };
