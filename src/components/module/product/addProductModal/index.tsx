@@ -33,7 +33,7 @@ export default function AddProductModal({
             {status && <MessageModal
                 message={status.message}
                 icon={status.error ? "/img/error.png" : "/img/check.png"}
-                onClose={onClose}
+                onClose={status.error ? () => setStatus(undefined) : onClose}
             />}
             {!status && <Modal
                 onClose={onClose}
