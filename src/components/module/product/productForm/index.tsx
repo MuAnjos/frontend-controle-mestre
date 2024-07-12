@@ -70,7 +70,7 @@ export function ProductForm({ update, control, onSubmit, register }: ProductForm
             </div>
             <CategoriesDropdown register={register} update={update} />
             <button className="p-4 text-xl font-bold text-white bg-orange-500 rounded-xl hover:bg-orange-600 self-end">
-                Confirmar atualização
+                Confirmar {update ? "Atualização" : "Criação"}
             </button>
         </Form>
     </>

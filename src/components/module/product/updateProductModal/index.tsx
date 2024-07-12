@@ -7,6 +7,7 @@ import { FormSubmitHandler, useForm } from "react-hook-form";
 import { UpdateProductReq } from "@/@types/interfaces/req/UpdateProductReq";
 import { ProductForm, ProductFormFields } from "../productForm";
 import { MessageModal } from "@/components/UI/messageModal";
+import { ModalHeader } from "@/components/UI/modalHeader";
 
 export default function UpdateProductModal({
   selectedProduct,
@@ -50,14 +51,7 @@ export default function UpdateProductModal({
         onClose={onClose}
         className="bg-orange-400 p-8 rounded-xl w-[960px] flex flex-col"
       >
-        <div className="flex justify-between w-full">
-          <h1 className="mx-auto text-3xl font-bold text-white">
-            Atualizar o Produto
-          </h1>
-          <button onClick={onClose}>
-            <X />
-          </button>
-        </div>
+        <ModalHeader title="Atualizar o Produto" onClose={onClose} />
         <ProductForm onSubmit={onSubmit} control={control} register={register} update />
       </Modal>}
     </>

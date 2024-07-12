@@ -7,6 +7,7 @@ import UpdateProductModal from "@/components/module/product/updateProductModal";
 import { ProductList } from "@/components/module/product/productList";
 import AddProductModal from "@/components/module/product/addProductModal";
 import { deleteProduct } from "@/service/productsHttp";
+import { BottomButton } from "@/components/UI/bottomButton";
 
 export default function Produtos() {
   const [selectedProduct, setSelectedProduct] = useState<ProductItem>();
@@ -45,11 +46,7 @@ export default function Produtos() {
         onDeleteClick={onDeleteClick}
         onUpdateClick={onUpdateClick}
       />
-      <div className="absolute mt-6 bottom-4 right-10">
-        <button className="px-4 py-3 text-xl font-semibold text-white bg-orange-500 rounded-xl hover:bg-orange-600" onClick={() => setModal("adding")}>
-          Cadastrar novo produto +
-        </button>
-      </div>
+      <BottomButton text="Cadastrar novo Produto +" onClick={() => setModal("adding")} />
     </div>
   );
 }
