@@ -1,23 +1,25 @@
 "use client";
 
 import { deleteProduct } from "@/service/productsHttp";
-import { Modal } from "../../../UI/modal";
+import { Modal } from "../modal";
 import Image from "next/image";
 import { MessageModal } from "@/components/UI/messageModal";
 import { useState } from "react";
 
-export function DeleteProductModal({
-  selectedProduct,
+export function DeleteModal({
+  onConfirmPress,
   onClose,
 }: {
-  selectedProduct: string;
+  onConfirmPress: () => Promise<{ message: string, error: boolean }>;
   onClose: () => void;
 }) {
   const [status, setStatus] = useState<{ message: string; error: boolean }>();
-  async function removeProduct() {
-    const response = await deleteProduct(selectedProduct);
+
+  async function deleteItem() {
+    const response = await onConfirmPress();
     setStatus({ message: response.message, error: response.error });
   }
+
   return (
     <>
       {status && (
@@ -44,7 +46,7 @@ export function DeleteProductModal({
           <div className="flex gap-16">
             <button
               className="py-4 w-48 bg-green-500 rounded-xl text-white font-bold text-xl hover:bg-green-700"
-              onClick={removeProduct}
+              onClick={deleteItem}
             >
               Sim
             </button>

@@ -47,7 +47,7 @@ export default function Produtos() {
       />
       <div className="absolute mt-6 bottom-4 right-10">
         <button className="px-4 py-3 text-xl font-semibold text-white bg-orange-500 rounded-xl hover:bg-orange-600" onClick={() => setModal("adding")}>
-          Cadastrar novo produto +
+          Cadastrar novo Cliente +
         </button>
       </div>
     </div>
