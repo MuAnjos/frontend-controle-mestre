@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Modal } from "@/components/UI/modal";
-import { X } from "../../../../../public/svg/X";
 import { ProductItem } from "@/@types/interfaces/Product";
 import { updateProduct } from "@/service/productsHttp";
 import { FormSubmitHandler, useForm } from "react-hook-form";
