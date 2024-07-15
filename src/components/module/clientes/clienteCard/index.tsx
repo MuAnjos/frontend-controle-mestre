@@ -21,7 +21,7 @@ export function ClienteCard({
                         Nome: <span className="text-black">{cliente.nome}</span>
                     </p>
                     <p>
-                        Data De Nascimento: <span className="text-black">{dateFormatter(cliente.dataDeNascimento)}</span>
+                        Data De Nascimento: <span className="text-black">{dateFormatter(cliente.dataNascimento)}</span>
                     </p>
                 </div>
                 <div className="text-end">

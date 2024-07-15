@@ -8,6 +8,7 @@ export interface ClienteFormFields {
     nome: string,
     cpf: string,
     cep: string,
+    cidade: string,
     numero: string,
     rua: string,
     bairro: string,
@@ -110,6 +111,22 @@ export function ClienteForm({ update, control, onSubmit, register }: ClienteForm
                 />}
             />
             <Controller
+                name="cidade"
+                control={control}
+                rules={{
+                    required: true,
+                    minLength: 3
+                }}
+                render={({ field, fieldState }) => <Input
+                    id="cidade"
+                    label="Cidade"
+                    invalid={!!fieldState.invalid}
+                    {...field}
+                />}
+            />
+        </div>
+        <div className="flex justify-between w-full gap-4">
+            <Controller
                 name="dataDeNascimento"
                 control={control}
                 rules={{
@@ -125,8 +142,6 @@ export function ClienteForm({ update, control, onSubmit, register }: ClienteForm
                     {...field}
                 />}
             />
-        </div>
-        <div className="flex justify-between w-1/2 gap-4">
             <Controller
                 name="sexo"
                 control={control}

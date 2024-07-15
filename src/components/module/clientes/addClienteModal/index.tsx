@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "@/components/UI/modal";
 import { FormSubmitHandler, useForm } from "react-hook-form";
 import { MessageModal } from "@/components/UI/messageModal";
-import { ClienteForm, ClienteFormFields } from "../ClienteForm";
+import { ClienteForm, ClienteFormFields } from "../clienteForm";
 import { ModalHeader } from "@/components/UI/modalHeader";
 import { CreateClienteReq } from "@/@types/interfaces/req/CreateClienteReq";
 import { createCliente } from "@/service/ClientesHttp";

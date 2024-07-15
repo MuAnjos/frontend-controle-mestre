@@ -6,3 +6,7 @@ export const dateFormatter = (date: string) => {
     formattedDate[2] = splitted[0];
     return formattedDate.join("/");
 }
+
+export const ISOFormatter = (date: string) => {
+    return date.split("-").reverse().join("-");
+}

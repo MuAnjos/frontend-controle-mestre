@@ -1,10 +1,10 @@
-import { Endereco } from "./Endereco";
+import { Endereco } from "../Endereco";
 
-export interface Cliente {
+export interface UpdateClienteReq {
     id: number,
     nome: string,
     cpf: string,
     endereco: Endereco,
-    dataNascimento: string,
+    dataDeNascimento: string,
     sexo: "FEMININO" | "MASCULINO"
 }
