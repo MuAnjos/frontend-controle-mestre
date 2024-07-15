@@ -1,13 +1,9 @@
+import { Endereco } from "../Endereco";
+
 export interface CreateClienteReq {
     nome: string,
     cpf: string,
-    endereco: {
-        cep: number,
-        numero: number,
-        rua: string,
-        bairro: string,
-        complemento?: string 
-    },
+    endereco: Endereco,
     dataDeNascimento: string,
     sexo: string
 }
