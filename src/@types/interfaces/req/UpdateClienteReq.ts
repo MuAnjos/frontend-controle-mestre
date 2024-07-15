@@ -5,6 +5,6 @@ export interface UpdateClienteReq {
     nome: string,
     cpf: string,
     endereco: Endereco,
-    dataDeNascimento: string,
+    dataNascimento: string,
     sexo: "FEMININO" | "MASCULINO"
 }

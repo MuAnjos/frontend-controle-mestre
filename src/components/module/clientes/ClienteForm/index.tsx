@@ -13,7 +13,7 @@ export interface ClienteFormFields {
     rua: string,
     bairro: string,
     complemento: string,
-    dataDeNascimento: Date,
+    dataNascimento: Date,
     sexo: "MASCULINO" | "FEMININO"
 }
 
@@ -127,7 +127,7 @@ export function ClienteForm({ update, control, onSubmit, register }: ClienteForm
         </div>
         <div className="flex justify-between w-full gap-4">
             <Controller
-                name="dataDeNascimento"
+                name="dataNascimento"
                 control={control}
                 rules={{
                     required: true,

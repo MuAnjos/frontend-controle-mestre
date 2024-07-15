@@ -3,7 +3,7 @@ import { Cliente } from '@/@types/interfaces/Cliente';
 import { useQuery } from '@tanstack/react-query';
 import { SearchBar } from '../../searchBar';
 import { ClienteCard } from '../clienteCard';
-import { getClientes } from '@/service/ClientesHttp';
+import { getClientes } from '@/service/clientesHttp';
 
 interface ClienteListProps {
     onDeleteClick: (cliente: Cliente) => void;

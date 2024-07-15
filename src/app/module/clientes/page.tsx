@@ -2,30 +2,12 @@
 
 import { useState } from "react";
 import { DeleteModal } from "@/components/UI/deleteModal";
-import UpdateProductModal from "@/components/module/product/updateProductModal";
-import { deleteProduct } from "@/service/productsHttp";
 import { BottomButton } from "@/components/UI/bottomButton";
 import AddClienteModal from "@/components/module/clientes/addClienteModal";
 import { Cliente } from "@/@types/interfaces/Cliente";
 import { ClienteList } from "@/components/module/clientes/clienteList";
 import { UpdateClienteModal } from "@/components/module/clientes/updateClienteModal";
-
-const CLIENTE: Cliente = {
-  "id": 1,
-  "nome": "Gerdany",
-  "cpf": "12345678912",
-  "endereco": {
-    "id": 4,
-    "cidade": "Vitória da Conquista",
-    "cep": 12345678,
-    "numero": 123,
-    "rua": "rua",
-    "bairro": "Bairro",
-    "complemento": "complemento"
-  },
-  "dataNascimento": "2004-12-10",
-  "sexo": "MASCULINO"
-}
+import { deleteCliente } from "@/service/clientesHttp";
 
 export default function Produtos() {
   const [selectedCliente, setSelectedCliente] = useState<Cliente>();
@@ -45,7 +27,7 @@ export default function Produtos() {
     <div className="flex flex-col pt-5">
       {modal === "removing" && (
         <DeleteModal
-          onConfirmPress={() => deleteProduct(selectedCliente?.id.toString()!)}
+          onConfirmPress={() => deleteCliente(selectedCliente?.id.toString()!)}
           onClose={() => setModal(undefined)}
         />
       )}

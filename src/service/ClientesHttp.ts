@@ -1,9 +1,9 @@
-import { Cliente } from "@/@types/interfaces/Cliente";
 import { CreateClienteReq } from "@/@types/interfaces/req/CreateClienteReq";
 import { UpdateClienteReq } from "@/@types/interfaces/req/UpdateClienteReq";
 import { queryClient } from "@/components/utils/reactQueryProvider";
 
 export async function createCliente(newCliente: CreateClienteReq) {
+    console.log(newCliente);
     const response = await fetch("http://localhost:8080/cliente", {
         method: "POST",
         headers: {
@@ -20,7 +20,7 @@ export async function createCliente(newCliente: CreateClienteReq) {
     return { error: false, message: "Cliente criado com sucesso!" };
 }
 
-export async function updateCliente(updatedCliente: UpdateClienteReq) {    
+export async function updateCliente(updatedCliente: UpdateClienteReq) {
     const response = await fetch("http://localhost:8080/cliente", {
         method: "PATCH",
         headers: {
@@ -44,9 +44,9 @@ export async function getClientes() {
     return data;
 }
 
-export async function deleteProduct(selectedProduct: string) {
+export async function deleteCliente(clienteId: string) {
     const response = await fetch(
-        `http://localhost:8080/cliente/${selectedProduct}`,
+        `http://localhost:8080/cliente/${clienteId}`,
         {
             method: "DELETE",
         }
@@ -54,6 +54,6 @@ export async function deleteProduct(selectedProduct: string) {
     if (response.status !== 200) {
         return { message: "Ocorreu um erro ao deletar o Cliente", error: true };
     }
-    queryClient.invalidateQueries({ queryKey: ["products"] });
+    queryClient.invalidateQueries({ queryKey: ["clientes"] });
     return { error: false, message: "Cliente deletado com sucesso!" };
 }

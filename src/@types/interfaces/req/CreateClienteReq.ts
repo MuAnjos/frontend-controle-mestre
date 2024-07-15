@@ -9,6 +9,6 @@ export interface CreateClienteReq {
         bairro: string,
         complemento?: string
     },
-    dataDeNascimento: string,
+    dataNascimento: string,
     sexo: string
 }

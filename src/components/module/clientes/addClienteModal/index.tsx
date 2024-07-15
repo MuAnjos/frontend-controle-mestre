@@ -5,7 +5,7 @@ import { MessageModal } from "@/components/UI/messageModal";
 import { ClienteForm, ClienteFormFields } from "../clienteForm";
 import { ModalHeader } from "@/components/UI/modalHeader";
 import { CreateClienteReq } from "@/@types/interfaces/req/CreateClienteReq";
-import { createCliente } from "@/service/ClientesHttp";
+import { createCliente } from "@/service/clientesHttp";
 
 export default function AddClienteModal({
     onClose,
@@ -21,7 +21,7 @@ export default function AddClienteModal({
             cpf: "",
             cep: "",
             numero: "",
-            dataDeNascimento: new Date()
+            dataNascimento: new Date()
         },
     });
 
@@ -30,8 +30,9 @@ export default function AddClienteModal({
             nome: data.nome,
             cpf: data.cpf,
             sexo: data.sexo,
-            dataDeNascimento: data.dataDeNascimento.toISOString().split("T")[0],
+            dataNascimento: data.dataNascimento.toISOString().split("T")[0],
             endereco: {
+                cidade: data.cidade,
                 cep: parseInt(data.cep),
                 numero: parseInt(data.numero),
                 rua: data.rua,

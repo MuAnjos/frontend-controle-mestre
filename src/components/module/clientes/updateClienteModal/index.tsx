@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Cliente } from '@/@types/interfaces/Cliente';
 import { ClienteForm, ClienteFormFields } from '../clienteForm';
 import { FormSubmitHandler, useForm } from 'react-hook-form';
-import { updateCliente } from '@/service/ClientesHttp';
+import { updateCliente } from '@/service/clientesHttp';
 import { MessageModal } from '@/components/UI/messageModal';
 import { Modal } from '@/components/UI/modal';
 import { ModalHeader } from '@/components/UI/modalHeader';
@@ -21,7 +21,7 @@ export function UpdateClienteModal({
         defaultValues: {
             nome: selectedCliente.nome,
             cpf: selectedCliente.cpf,
-            dataDeNascimento: new Date(selectedCliente.dataNascimento),
+            dataNascimento: new Date(selectedCliente.dataNascimento),
             numero: selectedCliente.endereco.numero.toString(),
             cidade: selectedCliente.endereco.cidade,
             cep: selectedCliente.endereco.cep.toString(),
@@ -36,7 +36,7 @@ export function UpdateClienteModal({
             id: selectedCliente.id!,
             nome: data.nome,
             cpf: data.cpf,
-            dataDeNascimento: ISOFormatter(data.dataDeNascimento.toLocaleDateString().replaceAll("/", "-")),
+            dataNascimento: ISOFormatter(data.dataNascimento.toLocaleDateString().replaceAll("/", "-")),
             endereco: {
                 id: selectedCliente.endereco.id,
                 numero: +data.numero,
