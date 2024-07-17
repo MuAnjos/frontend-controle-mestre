@@ -21,6 +21,7 @@ export function UpdateClienteModal({
         defaultValues: {
             nome: selectedCliente.nome,
             cpf: selectedCliente.cpf,
+            sexo: selectedCliente.sexo,
             dataNascimento: getClienteDataNascimento(selectedCliente.dataNascimento),
             endereco: selectedCliente.endereco
         },
@@ -58,13 +59,14 @@ export function UpdateClienteModal({
                 onClose={onClose}
                 className="bg-orange-400 p-8 rounded-xl w-[960px] flex flex-col"
             >
-                <ModalHeader title="Cadastrar Cliente" onClose={onClose} />
+                <ModalHeader title="Atualizar Cliente" onClose={onClose} />
                 <ClienteForm
                     onSubmit={onSubmit}
                     control={control}
                     register={register}
                     setValue={setValue}
                     getValues={getValues}
+                    update
                 />
             </Modal>}
         </>

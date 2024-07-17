@@ -5,6 +5,7 @@ import { CDatePicker } from '../../../UI/datepicker';
 import { SexRadio } from '@/components/UI/sexRadio';
 import { AddressForm, AddressFormField } from './addressForm';
 import { Endereco } from '@/@types/interfaces/Endereco';
+import { AddressCard } from './addressCard';
 
 export interface ClienteFormFields {
     nome: string,
@@ -15,12 +16,12 @@ export interface ClienteFormFields {
 }
 
 interface ClienteFormProps {
-    update?: boolean,
     control: Control<ClienteFormFields, any> | undefined,
     getValues: UseFormGetValues<ClienteFormFields>,
     setValue: UseFormSetValue<ClienteFormFields>,
     onSubmit: FormSubmitHandler<ClienteFormFields>,
     register: UseFormRegister<ClienteFormFields>
+    update?: boolean,
 }
 
 export function ClienteForm({ update, control, getValues, setValue, onSubmit, register }: ClienteFormProps) {
@@ -33,7 +34,11 @@ export function ClienteForm({ update, control, getValues, setValue, onSubmit, re
         setShowAddress(false);
     }
     return <>
-        {showAddress && <AddressForm onClose={() => setShowAddress(false)} onSubmit={setEndereco} endereco={getValues("endereco")} />}
+        {showAddress && <AddressForm
+            onClose={() => setShowAddress(false)}
+            onSubmit={setEndereco}
+            endereco={update ? getValues("endereco") : undefined}
+        />}
         <Form className="flex flex-col w-full gap-4 pt-4" onSubmit={onSubmit} control={control}>
             <div className="flex w-full gap-4">
                 <Controller
@@ -84,7 +89,7 @@ export function ClienteForm({ update, control, getValues, setValue, onSubmit, re
                     }
                 />
             </div>
-            <button onClick={() => setShowAddress(true)} type='button'>fsdfgsadf</button>
+            <AddressCard endereco={getValues("endereco")} onClick={() => setShowAddress(true)} />
             <button className="p-4 text-xl font-bold text-white bg-orange-500 rounded-xl hover:bg-orange-600 self-end">
                 Confirmar {update ? "atualização" : "Cadastro"}
             </button>

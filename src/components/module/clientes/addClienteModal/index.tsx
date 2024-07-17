@@ -58,7 +58,7 @@ export default function AddClienteModal({
                     control={control}
                     register={register}
                     setValue={setValue}
-                    endereco={getValues("endereco")}
+                    getValues={getValues}
                 />
             </Modal>}
         </>
