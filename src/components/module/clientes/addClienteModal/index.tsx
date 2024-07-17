@@ -13,15 +13,12 @@ export default function AddClienteModal({
     onClose: () => void;
 }) {
     const [status, setStatus] = useState<{ message: string; error: boolean }>();
-    const { control, register } = useForm<ClienteFormFields>({
+    const { control, register, getValues, setValue } = useForm<ClienteFormFields>({
         defaultValues: {
             nome: "",
-            bairro: "",
-            rua: "",
             cpf: "",
-            cep: "",
-            numero: "",
-            dataNascimento: new Date()
+            dataNascimento: new Date(),
+            endereco: undefined
         },
     });
 
@@ -32,12 +29,12 @@ export default function AddClienteModal({
             sexo: data.sexo,
             dataNascimento: data.dataNascimento.toISOString().split("T")[0],
             endereco: {
-                cidade: data.cidade,
-                cep: parseInt(data.cep),
-                numero: parseInt(data.numero),
-                rua: data.rua,
-                bairro: data.bairro,
-                complemento: data.complemento
+                cidade: data.endereco.cidade,
+                cep: data.endereco.cep,
+                numero: data.endereco.numero,
+                rua: data.endereco.rua,
+                bairro: data.endereco.bairro,
+                complemento: data.endereco.complemento
             },
         };
         const response = await createCliente(nCliente);
@@ -56,7 +53,13 @@ export default function AddClienteModal({
                 className="bg-orange-400 p-8 rounded-xl w-[960px] flex flex-col"
             >
                 <ModalHeader title="Cadastrar Cliente" onClose={onClose} />
-                <ClienteForm onSubmit={onSubmit} control={control} register={register} />
+                <ClienteForm
+                    onSubmit={onSubmit}
+                    control={control}
+                    register={register}
+                    setValue={setValue}
+                    endereco={getValues("endereco")}
+                />
             </Modal>}
         </>
     );

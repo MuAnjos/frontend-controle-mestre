@@ -3,8 +3,8 @@ export interface CreateClienteReq {
     cpf: string,
     endereco: {
         cidade: string,
-        cep: number,
-        numero: number,
+        cep: string,
+        numero: string,
         rua: string,
         bairro: string,
         complemento?: string

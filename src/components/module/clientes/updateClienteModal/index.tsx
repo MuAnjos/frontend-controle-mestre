@@ -6,8 +6,8 @@ import { updateCliente } from '@/service/clientesHttp';
 import { MessageModal } from '@/components/UI/messageModal';
 import { Modal } from '@/components/UI/modal';
 import { ModalHeader } from '@/components/UI/modalHeader';
-import { ISOFormatter } from '@/util/formatter/dateFormatter';
 import { UpdateClienteReq } from '@/@types/interfaces/req/UpdateClienteReq';
+import { getClienteDataNascimento } from '@/util/formatter/dateFormatter';
 
 export function UpdateClienteModal({
     selectedCliente,
@@ -17,35 +17,31 @@ export function UpdateClienteModal({
     onClose: () => void;
 }) {
     const [status, setStatus] = useState<{ message: string; error: boolean }>();
-    const { control, register } = useForm<ClienteFormFields>({
+    const { control, register, getValues, setValue } = useForm<ClienteFormFields>({
         defaultValues: {
             nome: selectedCliente.nome,
             cpf: selectedCliente.cpf,
-            dataNascimento: new Date(selectedCliente.dataNascimento),
-            numero: selectedCliente.endereco.numero.toString(),
-            cidade: selectedCliente.endereco.cidade,
-            cep: selectedCliente.endereco.cep.toString(),
-            rua: selectedCliente.endereco.rua,
-            bairro: selectedCliente.endereco.bairro,
-            sexo: selectedCliente.sexo
+            dataNascimento: getClienteDataNascimento(selectedCliente.dataNascimento),
+            endereco: selectedCliente.endereco
         },
     });
 
     const onSubmit: FormSubmitHandler<ClienteFormFields> = async ({ data }) => {
         const updatedCliente: UpdateClienteReq = {
-            id: selectedCliente.id!,
+            id: selectedCliente.id,
             nome: data.nome,
             cpf: data.cpf,
-            dataNascimento: ISOFormatter(data.dataNascimento.toLocaleDateString().replaceAll("/", "-")),
+            sexo: data.sexo,
+            dataNascimento: data.dataNascimento.toISOString().split("T")[0],
             endereco: {
-                id: selectedCliente.endereco.id,
-                numero: +data.numero,
-                cidade: data.cidade,
-                cep: +data.cep,
-                rua: data.rua,
-                bairro: data.bairro
+                id: selectedCliente.endereco.id!,
+                cidade: data.endereco.cidade,
+                cep: data.endereco.cep,
+                numero: data.endereco.numero,
+                rua: data.endereco.rua,
+                bairro: data.endereco.bairro,
+                complemento: data.endereco.complemento,
             },
-            sexo: data.sexo
         }
         const response = await updateCliente(updatedCliente);
         setStatus(response);
@@ -62,8 +58,14 @@ export function UpdateClienteModal({
                 onClose={onClose}
                 className="bg-orange-400 p-8 rounded-xl w-[960px] flex flex-col"
             >
-                <ModalHeader title="Atualizar Cliente" onClose={onClose} />
-                <ClienteForm onSubmit={onSubmit} control={control} register={register} update />
+                <ModalHeader title="Cadastrar Cliente" onClose={onClose} />
+                <ClienteForm
+                    onSubmit={onSubmit}
+                    control={control}
+                    register={register}
+                    setValue={setValue}
+                    getValues={getValues}
+                />
             </Modal>}
         </>
     );

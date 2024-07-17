@@ -1,8 +1,8 @@
 export interface Endereco {
-    id: number,
+    id: number | undefined,
     cidade: string,
-    cep: number,
-    numero: number,
+    cep: string,
+    numero: string,
     rua: string,
     bairro: string,
     complemento?: string

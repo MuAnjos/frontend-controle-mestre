@@ -10,3 +10,10 @@ export const dateFormatter = (date: string) => {
 export const ISOFormatter = (date: string) => {
     return date.split("-").reverse().join("-");
 }
+
+export const getClienteDataNascimento = (date: string) => {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + 1)
+
+    return newDate;
+}
