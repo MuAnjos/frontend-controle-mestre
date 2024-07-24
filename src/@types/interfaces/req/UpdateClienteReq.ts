@@ -4,7 +4,7 @@ export interface UpdateClienteReq {
     id: number,
     nome: string,
     cpf: string,
-    endereco: Endereco,
+    endereco: Endereco | undefined,
     dataNascimento: string,
     sexo: "FEMININO" | "MASCULINO"
 }

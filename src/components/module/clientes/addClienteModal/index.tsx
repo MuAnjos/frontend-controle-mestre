@@ -23,19 +23,13 @@ export default function AddClienteModal({
     });
 
     const onSubmit: FormSubmitHandler<ClienteFormFields> = async ({ data }) => {
+        const enderecoCliente = data.endereco ? { ...data.endereco } : undefined;
         const nCliente: CreateClienteReq = {
             nome: data.nome,
             cpf: data.cpf,
             sexo: data.sexo,
             dataNascimento: data.dataNascimento.toISOString().split("T")[0],
-            endereco: {
-                cidade: data.endereco.cidade,
-                cep: data.endereco.cep,
-                numero: data.endereco.numero,
-                rua: data.endereco.rua,
-                bairro: data.endereco.bairro,
-                complemento: data.endereco.complemento
-            },
+            endereco: enderecoCliente,
         };
         const response = await createCliente(nCliente);
         setStatus(response);

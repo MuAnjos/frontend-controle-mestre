@@ -10,17 +10,18 @@ interface CDatePickerProps extends React.HTMLAttributes<DatePickerProps> {
     invalid: boolean;
     onChange: any;
     selected: any;
+    required?: boolean;
     register?: any;
 }
 
 export const CDatePicker = forwardRef(
     (
-        { label, invalid, register, ...props }: CDatePickerProps, _
+        { label, invalid, register, required, ...props }: CDatePickerProps, _
     ) => {
         return (
             <div className="flex flex-col w-full p-2 bg-white rounded-lg">
                 <label htmlFor={props.id} className={`text-sm text-gray-500 ${invalid && "text-red-500"} false font-medium w-full`}>
-                    {label}
+                    {label}<span className="text-red-500">{required && "*"}</span>
                 </label>
                 <DatePicker
                     className="focus:outline-none"

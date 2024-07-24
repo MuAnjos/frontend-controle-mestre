@@ -49,6 +49,7 @@ export function ClienteForm({ update, control, getValues, setValue, onSubmit, re
                         label="Nome do Cliente"
                         id="nome"
                         invalid={!!fieldState.error}
+                        required
                         {...field}
                     />}
                 />
@@ -60,6 +61,7 @@ export function ClienteForm({ update, control, getValues, setValue, onSubmit, re
                         label="CPF"
                         id="cpf"
                         invalid={!!fieldState.error}
+                        required
                         {...field}
                     />}
                 />
@@ -75,6 +77,7 @@ export function ClienteForm({ update, control, getValues, setValue, onSubmit, re
                     render={({ field, fieldState }) => <CDatePicker
                         id="dataDeNascimento"
                         label="Data de Nascimento"
+                        required
                         selected={field.value}
                         invalid={!!fieldState.invalid}
                         register={register}
@@ -85,7 +88,11 @@ export function ClienteForm({ update, control, getValues, setValue, onSubmit, re
                     name="sexo"
                     control={control}
                     rules={{ required: true }}
-                    render={({ fieldState }) => <SexRadio register={register} invalid={!!fieldState.invalid} />
+                    render={({ fieldState }) => <SexRadio
+                        register={register}
+                        invalid={!!fieldState.invalid}
+                        required
+                    />
                     }
                 />
             </div>

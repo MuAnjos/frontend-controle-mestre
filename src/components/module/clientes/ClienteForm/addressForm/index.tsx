@@ -44,6 +44,7 @@ export function AddressForm({ endereco, onSubmit, onClose }: AddressFormProps) {
                             label="CEP"
                             id="cep"
                             invalid={!!fieldState.error}
+                            required
                             {...field}
                         />}
                     />
@@ -55,6 +56,7 @@ export function AddressForm({ endereco, onSubmit, onClose }: AddressFormProps) {
                             label="Número da casa"
                             id="numero"
                             invalid={!!fieldState.error}
+                            required
                             {...field}
                         />}
                     />
@@ -68,6 +70,7 @@ export function AddressForm({ endereco, onSubmit, onClose }: AddressFormProps) {
                             label="Rua"
                             id="rua"
                             invalid={!!fieldState.error}
+                            required
                             {...field}
                         />}
                     />
@@ -79,6 +82,7 @@ export function AddressForm({ endereco, onSubmit, onClose }: AddressFormProps) {
                             label="Bairro"
                             id="bairro"
                             invalid={!!fieldState.error}
+                            required
                             {...field}
                         />}
                     />
@@ -106,6 +110,7 @@ export function AddressForm({ endereco, onSubmit, onClose }: AddressFormProps) {
                             id="cidade"
                             label="Cidade"
                             invalid={!!fieldState.invalid}
+                            required
                             {...field}
                         />}
                     />

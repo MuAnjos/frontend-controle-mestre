@@ -27,6 +27,7 @@ export default function Produtos() {
     <div className="flex flex-col pt-5">
       {modal === "removing" && (
         <DeleteModal
+        message="Você deseja realmente deletar esse produto?"
           onConfirmPress={() => deleteProduct(selectedProduct?.id!)}
           onClose={() => setModal(undefined)}
         />

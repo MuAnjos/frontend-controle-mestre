@@ -2,14 +2,16 @@ import React from 'react'
 
 export interface SexRadioProps extends React.HTMLAttributes<HTMLInputElement> {
     invalid: boolean,
-    register: any
+    register: any,
+    required?: boolean,
 }
 
-export function SexRadio({ register,invalid, ...props }: SexRadioProps) {
+export function SexRadio({ register, invalid, required, ...props }: SexRadioProps) {
     return (
         <div className="w-full">
             <label className={`font-semibold ${invalid && "text-red-600"}`}>
                 Sexo
+                <span className="text-red-500">{required && "*"}</span>
             </label>
             <div className="flex gap-8 mt-2">
                 <div className="flex gap-2 justify-center">

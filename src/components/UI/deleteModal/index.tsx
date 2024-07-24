@@ -1,15 +1,16 @@
 "use client";
 
-import { deleteProduct } from "@/service/productsHttp";
 import { Modal } from "../modal";
 import Image from "next/image";
 import { MessageModal } from "@/components/UI/messageModal";
 import { useState } from "react";
 
 export function DeleteModal({
+  message,
   onConfirmPress,
   onClose,
 }: {
+  message: string
   onConfirmPress: () => Promise<{ message: string, error: boolean }>;
   onClose: () => void;
 }) {
@@ -41,7 +42,7 @@ export function DeleteModal({
             alt="Ícone de alerta"
           />
           <h2 className="text-white font-bold text-3xl">
-            Você deseja realmente deletar esse produto?
+            {message}
           </h2>
           <div className="flex gap-16">
             <button

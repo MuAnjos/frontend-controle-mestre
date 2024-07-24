@@ -8,7 +8,7 @@ export interface CreateClienteReq {
         rua: string,
         bairro: string,
         complemento?: string
-    },
+    } | undefined,
     dataNascimento: string,
     sexo: string
 }

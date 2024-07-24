@@ -28,21 +28,14 @@ export function UpdateClienteModal({
     });
 
     const onSubmit: FormSubmitHandler<ClienteFormFields> = async ({ data }) => {
+        const enderecoCliente = data.endereco ? { ...data.endereco, id: selectedCliente.id! } : undefined;
         const updatedCliente: UpdateClienteReq = {
             id: selectedCliente.id,
             nome: data.nome,
             cpf: data.cpf,
             sexo: data.sexo,
             dataNascimento: data.dataNascimento.toISOString().split("T")[0],
-            endereco: {
-                id: selectedCliente.endereco.id!,
-                cidade: data.endereco.cidade,
-                cep: data.endereco.cep,
-                numero: data.endereco.numero,
-                rua: data.endereco.rua,
-                bairro: data.endereco.bairro,
-                complemento: data.endereco.complemento,
-            },
+            endereco: enderecoCliente
         }
         const response = await updateCliente(updatedCliente);
         setStatus(response);

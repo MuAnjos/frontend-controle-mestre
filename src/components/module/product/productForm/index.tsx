@@ -29,6 +29,7 @@ export function ProductForm({ update, control, onSubmit, register }: ProductForm
                         label="Nome do produto"
                         id="nome"
                         invalid={!!fieldState.error}
+                        required
                         {...field}
                     />}
                 />
@@ -40,6 +41,7 @@ export function ProductForm({ update, control, onSubmit, register }: ProductForm
                         label="Código do produto"
                         id="codigo"
                         invalid={!!fieldState.error}
+                        required
                         {...field}
                     />}
                 />
@@ -53,6 +55,7 @@ export function ProductForm({ update, control, onSubmit, register }: ProductForm
                         label="Marca do produto"
                         id="marca"
                         invalid={!!fieldState.error}
+                        required
                         {...field}
                     />}
                 />
@@ -64,6 +67,7 @@ export function ProductForm({ update, control, onSubmit, register }: ProductForm
                         label="Preço do produto"
                         id="preco"
                         invalid={!!fieldState.error}
+                        required
                         {...field}
                     />}
                 />

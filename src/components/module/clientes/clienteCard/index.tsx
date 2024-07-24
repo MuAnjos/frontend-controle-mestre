@@ -28,11 +28,16 @@ export function ClienteCard({
                     <p>
                         CPF: <span className="text-black">{cliente.cpf}</span>
                     </p>
-                    <p>
+                    {cliente.endereco && <p>
                         Cidade: <span className="text-black">
                             {cliente.endereco.cidade}
                         </span>
-                    </p>
+                    </p>}
+                    {!cliente.endereco && <p>
+                        Sexo: <span className="text-black lowercase">
+                            {cliente.sexo}
+                        </span>
+                    </p>}
                 </div>
             </div>
             <div>

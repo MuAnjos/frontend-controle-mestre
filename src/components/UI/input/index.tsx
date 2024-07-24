@@ -4,11 +4,12 @@ import React, { forwardRef } from "react";
 interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
   label: string;
   id: string;
+  required?: boolean;
   type?: string;
   invalid?: boolean;
 }
 
-export const Input = forwardRef(({ label, id, type, invalid, ...props }: InputProps, ref: any) => {
+export const Input = forwardRef(({ label, id, type, invalid, required, ...props }: InputProps, ref: any) => {
   return (
     <div className="flex flex-col w-full p-2 bg-white rounded-lg">
       <label
@@ -17,6 +18,7 @@ export const Input = forwardRef(({ label, id, type, invalid, ...props }: InputPr
           } font-medium w-full`}
       >
         {label}
+        <span className="text-red-500">{required && "*"}</span>
       </label>
       <input
         className="text-lg font-bold outline-none"
