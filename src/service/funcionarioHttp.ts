@@ -17,3 +17,9 @@ export async function createFuncionario(newFuncionario: CreateFuncionarioReq) {
     queryClient.invalidateQueries({ queryKey: ["funcionarios"] });
     return { error: false, message: "Funcionario criado com sucesso!" };
 }
+
+export async function getFuncionarios() {
+    const response = await fetch("http://localhost:8080/funcionario");
+    const data = await response.json();
+    return data;
+}

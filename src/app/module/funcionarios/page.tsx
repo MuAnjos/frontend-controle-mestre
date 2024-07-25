@@ -1,23 +1,24 @@
 "use client";
 
-import { ProductItem } from '@/@types/interfaces/Product';
+import { Funcionario } from '@/@types/interfaces/Funcionario';
 import AddFuncionarioModal from '@/components/module/funcionario/addFuncionarioModal';
-import { ProductList } from '@/components/module/product/productList';
+import { FuncionarioList } from '@/components/module/funcionario/funcionarioList';
 import { BottomButton } from '@/components/UI/bottomButton';
+import { DeleteModal } from '@/components/UI/deleteModal';
 import React, { useState } from 'react'
 
 export default function Funcionarios() {
-    const [selectedFuncionario, setSelectedFuncionario] = useState<ProductItem>();
+    const [selectedFuncionario, setSelectedFuncionario] = useState<Funcionario>();
     const [modal, setModal] = useState<"removing" | "adding" | "updating" | "success">();
 
-    function onDeleteClick(item: ProductItem) {
-        setSelectedFuncionario(item);
+    function onDeleteClick(funcionario: Funcionario) {
+        setSelectedFuncionario(funcionario);
         setModal("removing");
     }
 
-    function onUpdateClick(product: ProductItem) {
+    function onUpdateClick(funcionario: Funcionario) {
         setModal("updating");
-        setSelectedFuncionario(product);
+        setSelectedFuncionario(funcionario);
     }
 
     return (
@@ -25,11 +26,11 @@ export default function Funcionarios() {
             {/* {modal === "removing" && (
                 <DeleteModal
                     message="Você deseja realmente deletar esse produto?"
-                    onConfirmPress={() => deleteProduct(selectedFuncionario?.id!)}
+                    onConfirmPress={() => deleteFuncionario(selectedFuncionario?.id!)}
                     onClose={() => setModal(undefined)}
                 />
-            )}
-            {modal === "updating" && (
+            )} */}
+            {/* {modal === "updating" && (
                 <UpdateProductModal
                     selectedFuncionario={selectedFuncionario!}
                     onClose={() => setModal(undefined)}
@@ -40,10 +41,10 @@ export default function Funcionarios() {
                     onClose={() => setModal(undefined)}
                 />
             )}
-            {/* <ProductList
+            <FuncionarioList
                 onDeleteClick={onDeleteClick}
                 onUpdateClick={onUpdateClick}
-            /> */}
+            />
             <BottomButton text="Cadastrar novo Funcionario +" onClick={() => setModal("adding")} />
         </div>
     );
