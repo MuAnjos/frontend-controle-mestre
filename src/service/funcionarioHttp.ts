@@ -23,3 +23,17 @@ export async function getFuncionarios() {
     const data = await response.json();
     return data;
 }
+
+export async function deleteFuncionario(selectedFuncionario: string) {
+    const response = await fetch(
+        `http://localhost:8080/funcionario/${selectedFuncionario}`,
+        {
+            method: "DELETE",
+        }
+    );
+    if (response.status !== 200) {
+        return { message: "Ocorreu um erro ao deletar o funcionario", error: true };
+    }
+    queryClient.invalidateQueries({ queryKey: ["funcionarios"] });
+    return { error: false, message: "Funcionario deletado com sucesso!" };
+}

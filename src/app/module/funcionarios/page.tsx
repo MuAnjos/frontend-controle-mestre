@@ -5,6 +5,7 @@ import AddFuncionarioModal from '@/components/module/funcionario/addFuncionarioM
 import { FuncionarioList } from '@/components/module/funcionario/funcionarioList';
 import { BottomButton } from '@/components/UI/bottomButton';
 import { DeleteModal } from '@/components/UI/deleteModal';
+import { deleteFuncionario } from '@/service/funcionarioHttp';
 import React, { useState } from 'react'
 
 export default function Funcionarios() {
@@ -23,13 +24,13 @@ export default function Funcionarios() {
 
     return (
         <div className="flex flex-col pt-5">
-            {/* {modal === "removing" && (
+            {modal === "removing" && (
                 <DeleteModal
                     message="Você deseja realmente deletar esse produto?"
                     onConfirmPress={() => deleteFuncionario(selectedFuncionario?.id!)}
                     onClose={() => setModal(undefined)}
                 />
-            )} */}
+            )}
             {/* {modal === "updating" && (
                 <UpdateProductModal
                     selectedFuncionario={selectedFuncionario!}
