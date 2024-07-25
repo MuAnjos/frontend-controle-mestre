@@ -1,30 +1,32 @@
 import React, { useState } from 'react';
-import { Control, Controller, Form, FormSubmitHandler, useForm, UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { Control, Controller, Form, FormSubmitHandler, UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { Input } from '@/components/UI/input';
-import { CDatePicker } from '../../../UI/datepicker';
-import { SexRadio } from '@/components/UI/sexRadio';
 import { AddressForm, AddressFormField } from '../../addressForm';
 import { Endereco } from '@/@types/interfaces/Endereco';
 import { AddressCard } from '../../addressCard';
+import { Cargo } from '@/@types/interfaces/Funcionario';
+import { CargoSelect } from '../cargoSelect';
 
-export interface ClienteFormFields {
+export interface FuncionarioFormFields {
     nome: string,
+    apelido: string,
+    endereco: Endereco,
     cpf: string,
-    dataNascimento: Date,
-    endereco: Endereco
-    sexo: "MASCULINO" | "FEMININO",
+    email: string,
+    telefone: string,
+    cargo: Cargo
 }
 
 interface ClienteFormProps {
-    control: Control<ClienteFormFields, any> | undefined,
-    getValues: UseFormGetValues<ClienteFormFields>,
-    setValue: UseFormSetValue<ClienteFormFields>,
-    onSubmit: FormSubmitHandler<ClienteFormFields>,
-    register: UseFormRegister<ClienteFormFields>
+    control: Control<FuncionarioFormFields, any> | undefined,
+    getValues: UseFormGetValues<FuncionarioFormFields>,
+    setValue: UseFormSetValue<FuncionarioFormFields>,
+    onSubmit: FormSubmitHandler<FuncionarioFormFields>,
+    register: UseFormRegister<FuncionarioFormFields>
     update?: boolean,
 }
 
-export function ClienteForm({ update, control, getValues, setValue, onSubmit, register }: ClienteFormProps) {
+export function FuncionarioForm({ update, control, getValues, setValue, onSubmit, register }: ClienteFormProps) {
     const [showAddress, setShowAddress] = useState(false);
     const setEndereco: FormSubmitHandler<AddressFormField> = ({ data }) => {
         setValue("endereco", {
@@ -54,6 +56,23 @@ export function ClienteForm({ update, control, getValues, setValue, onSubmit, re
                     />}
                 />
                 <Controller
+                    name="apelido"
+                    control={control}
+                    rules={{
+                        required: true,
+                    }}
+                    render={({ field, fieldState }) => <Input
+                        id="apelido"
+                        label="Apelido"
+                        required
+                        invalid={!!fieldState.invalid}
+                        {...field}
+                    />}
+                />
+
+            </div>
+            <div className="flex justify-between w-full gap-4">
+                <Controller
                     name="cpf"
                     control={control}
                     rules={{ required: true, minLength: 6 }}
@@ -65,33 +84,40 @@ export function ClienteForm({ update, control, getValues, setValue, onSubmit, re
                         {...field}
                     />}
                 />
+                <Controller
+                    name="email"
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ fieldState, field }) => <Input
+                        invalid={!!fieldState.invalid}
+                        required
+                        label="Email"
+                        id="email"
+                        {...field}
+                    />
+                    }
+                />
             </div>
             <div className="flex justify-between w-full gap-4">
                 <Controller
-                    name="dataNascimento"
+                    name="telefone"
                     control={control}
-                    rules={{
-                        required: true,
-                        validate: (date) => 14 <= (new Date().getFullYear() - date.getFullYear())
-                    }}
-                    render={({ field, fieldState }) => <CDatePicker
-                        id="dataDeNascimento"
-                        label="Data de Nascimento"
+                    rules={{ required: true, minLength: 6 }}
+                    render={({ field, fieldState }) => <Input
+                        label="Telefone"
+                        id="telefone"
+                        invalid={!!fieldState.error}
                         required
-                        selected={field.value}
-                        invalid={!!fieldState.invalid}
-                        register={register}
                         {...field}
                     />}
                 />
                 <Controller
-                    name="sexo"
+                    name="cargo"
                     control={control}
                     rules={{ required: true }}
-                    render={({ fieldState }) => <SexRadio
-                        register={register}
-                        invalid={!!fieldState.invalid}
+                    render={() => <CargoSelect
                         required
+                        register={register}
                     />
                     }
                 />
