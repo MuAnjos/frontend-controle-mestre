@@ -3,6 +3,7 @@
 import { Funcionario } from '@/@types/interfaces/Funcionario';
 import AddFuncionarioModal from '@/components/module/funcionario/addFuncionarioModal';
 import { FuncionarioList } from '@/components/module/funcionario/funcionarioList';
+import { UpdateFuncionarioModal } from '@/components/module/funcionario/updateFuncionarioModal';
 import { BottomButton } from '@/components/UI/bottomButton';
 import { DeleteModal } from '@/components/UI/deleteModal';
 import { deleteFuncionario } from '@/service/funcionarioHttp';
@@ -26,17 +27,17 @@ export default function Funcionarios() {
         <div className="flex flex-col pt-5">
             {modal === "removing" && (
                 <DeleteModal
-                    message="Você deseja realmente deletar esse produto?"
+                    message="Você deseja realmente deletar esse funcionário?"
                     onConfirmPress={() => deleteFuncionario(selectedFuncionario?.id!)}
                     onClose={() => setModal(undefined)}
                 />
             )}
-            {/* {modal === "updating" && (
-                <UpdateProductModal
+            {modal === "updating" && (
+                <UpdateFuncionarioModal
                     selectedFuncionario={selectedFuncionario!}
                     onClose={() => setModal(undefined)}
                 />
-            )} */}
+            )}
             {modal === "adding" && (
                 <AddFuncionarioModal
                     onClose={() => setModal(undefined)}

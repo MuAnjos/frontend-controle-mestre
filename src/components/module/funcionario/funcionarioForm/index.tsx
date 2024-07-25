@@ -17,7 +17,7 @@ export interface FuncionarioFormFields {
     cargo: Cargo
 }
 
-interface ClienteFormProps {
+interface FuncionarioFormProps {
     control: Control<FuncionarioFormFields, any> | undefined,
     getValues: UseFormGetValues<FuncionarioFormFields>,
     setValue: UseFormSetValue<FuncionarioFormFields>,
@@ -26,7 +26,7 @@ interface ClienteFormProps {
     update?: boolean,
 }
 
-export function FuncionarioForm({ update, control, getValues, setValue, onSubmit, register }: ClienteFormProps) {
+export function FuncionarioForm({ update, control, getValues, setValue, onSubmit, register }: FuncionarioFormProps) {
     const [showAddress, setShowAddress] = useState(false);
     const setEndereco: FormSubmitHandler<AddressFormField> = ({ data }) => {
         setValue("endereco", {

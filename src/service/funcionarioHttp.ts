@@ -1,3 +1,4 @@
+import { Funcionario } from "@/@types/interfaces/Funcionario";
 import { CreateFuncionarioReq } from "@/@types/interfaces/req/CreateFuncionarioReq";
 import { queryClient } from "@/components/utils/reactQueryProvider";
 
@@ -37,3 +38,21 @@ export async function deleteFuncionario(selectedFuncionario: string) {
     queryClient.invalidateQueries({ queryKey: ["funcionarios"] });
     return { error: false, message: "Funcionario deletado com sucesso!" };
 }
+
+export async function updateFuncionario(updatedFuncionario: Funcionario) {
+    const response = await fetch("http://localhost:8080/funcionario", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedFuncionario),
+    });
+    if (response.status !== 200) {
+      const errorResponse = await response.text();
+      const error = JSON.parse(errorResponse);
+      return { message: error.message, error: true };
+    }
+    queryClient.invalidateQueries({ queryKey: ["funcionarios"] });
+    return { error: false, message: "Funcionário atualizado com sucesso!" };
+  }
+  
