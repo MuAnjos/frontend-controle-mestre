@@ -1,14 +1,16 @@
 import { ChangeEvent } from "react";
 
 export function SearchBar({
+  className,
   onChange,
   onSearch
 }: {
+  className?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onSearch?: () => void;
 }) {
   return (
-    <div className="flex">
+    <div className={`flex ${className}`}>
       <input
         placeholder="Informe os dados..."
         className="w-full px-4 rounded-l-xl placeholder:text-xl"

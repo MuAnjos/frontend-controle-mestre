@@ -8,10 +8,11 @@ import { ProductList } from "@/components/module/product/productList";
 import AddProductModal from "@/components/module/product/addProductModal";
 import { deleteProduct } from "@/service/productsHttp";
 import { BottomButton } from "@/components/UI/bottomButton";
+import { CategoriesModal } from "@/components/module/category/categoriesModal";
 
 export default function Produtos() {
   const [selectedProduct, setSelectedProduct] = useState<ProductItem>();
-  const [modal, setModal] = useState<"removing" | "adding" | "updating" | "success">();
+  const [modal, setModal] = useState<"removing" | "adding" | "updating" | "success" | "categories">();
 
   function onDeleteClick(item: ProductItem) {
     setSelectedProduct(item);
@@ -27,8 +28,13 @@ export default function Produtos() {
     <div className="flex flex-col pt-5">
       {modal === "removing" && (
         <DeleteModal
-        message="Você deseja realmente deletar esse produto?"
+          message="Você deseja realmente deletar esse produto?"
           onConfirmPress={() => deleteProduct(selectedProduct?.id!)}
+          onClose={() => setModal(undefined)}
+        />
+      )}
+      {modal === "categories" && (
+        <CategoriesModal
           onClose={() => setModal(undefined)}
         />
       )}
@@ -47,6 +53,7 @@ export default function Produtos() {
         onDeleteClick={onDeleteClick}
         onUpdateClick={onUpdateClick}
       />
+      <BottomButton text="Categorias" onClick={() => setModal("categories")} className="left-10" />
       <BottomButton text="Cadastrar novo Produto +" onClick={() => setModal("adding")} />
     </div>
   );

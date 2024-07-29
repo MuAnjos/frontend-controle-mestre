@@ -1,14 +1,10 @@
+import { Category } from "@/@types/interfaces/Category";
 import { CreateProductReq } from "@/@types/interfaces/req/CreateProductReq";
 import { UpdateProductReq } from "@/@types/interfaces/req/UpdateProductReq";
 import { queryClient } from "@/components/utils/reactQueryProvider";
 
-export async function getProducts() {
-  const response = await fetch("http://localhost:8080/produtos");
-  const data = await response.json();
-  return data;
-}
-export async function getCategories() {
-  const response = await fetch("http://localhost:8080/categoria");
+export async function getProducts(filter?: Category) {
+  const response = await fetch(`http://localhost:8080/produtos?${filter ? "categoryId=" + filter.id : ""}`);
   const data = await response.json();
   return data;
 }
