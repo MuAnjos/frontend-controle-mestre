@@ -4,7 +4,7 @@ export interface CreateVendaReq {
   id?: string,
   valor: number,
   quantidade: number,
-  produtos: ProductItem[]
+  produtosId: (string | null)[]
   funcionarioId: string,
   clienteId: string
 }
