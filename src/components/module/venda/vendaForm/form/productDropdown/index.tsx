@@ -2,15 +2,14 @@ import { ProductItem } from "@/@types/interfaces/Product";
 import { getProducts } from "@/service/productsHttp";
 import React, { forwardRef, useEffect, useState } from "react";
 import { VendaFormFields } from "@/components/module/venda/vendaForm";
-import { EstoqueFormFields } from "..";
 import { UseFormRegister } from "react-hook-form";
 
 interface ProductsDropdownProps extends React.HTMLProps<HTMLSelectElement> {
-    register: UseFormRegister<EstoqueFormFields>;
+    register: UseFormRegister<VendaFormFields>;
     update?: boolean
 }
 
-export const ProductsDropdown = forwardRef(({
+export const ProductsDropdownM = forwardRef(({
     register,
     update,
     ...props
@@ -36,7 +35,7 @@ export const ProductsDropdown = forwardRef(({
                 id="opcoes"
                 className="text-lg font-bold outline-none w-full"
                 {...props}
-                {...register("productId")}
+                {...register("produtos")}
             >
                 {products.map((product) => (
                     <option key={product.id} value={product.id!}>
