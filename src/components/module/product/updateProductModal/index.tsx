@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Modal } from "@/components/UI/modal";
-import { ProductItem } from "@/@types/interfaces/Product";
-import { updateProduct } from "@/service/productsHttp";
-import { FormSubmitHandler, useForm } from "react-hook-form";
-import { UpdateProductReq } from "@/@types/interfaces/req/UpdateProductReq";
-import { ProductForm, ProductFormFields } from "../productForm";
-import { MessageModal } from "@/components/UI/messageModal";
-import { ModalHeader } from "@/components/UI/modalHeader";
+import React, { useState } from 'react';
+import { Modal } from '@/components/UI/modal';
+import { ProductItem } from '@/@types/interfaces/Product';
+import { updateProduct } from '@/service/productsHttp';
+import { FormSubmitHandler, useForm } from 'react-hook-form';
+import { UpdateProductReq } from '@/@types/interfaces/req/UpdateProductReq';
+import { ProductForm, ProductFormFields } from '../productForm';
+import { MessageModal } from '@/components/UI/messageModal';
+import { ModalHeader } from '@/components/UI/modalHeader';
 
 export default function UpdateProductModal({
   selectedProduct,
@@ -16,13 +16,15 @@ export default function UpdateProductModal({
   onClose: () => void;
 }) {
   const [status, setStatus] = useState<{ message: string; error: boolean }>();
+  console.log(selectedProduct);
+
   const { control, register } = useForm<ProductFormFields>({
     defaultValues: {
       nome: selectedProduct.nome,
       marca: selectedProduct.marca,
       preco: selectedProduct.preco,
       cod: selectedProduct.codigo,
-      categoriaId: selectedProduct.categoria.id
+      categoriaId: selectedProduct.Categoria.id,
     },
   });
 
@@ -33,26 +35,35 @@ export default function UpdateProductModal({
       marca: data.marca,
       categoriaId: data.categoriaId,
       preco: +data.preco,
-      codigo: +data.cod
-    }
+      codigo: +data.cod,
+    };
     const response = await updateProduct(updatedProduct);
     setStatus(response);
-  }
+  };
 
   return (
     <>
-      {status && <MessageModal
-        message={status.message}
-        icon={status.error ? "/img/error.png" : "/img/check.png"}
-        onClose={status.error ? () => setStatus(undefined) : onClose}
-      />}
-      {!status && <Modal
-        onClose={onClose}
-        className="bg-orange-400 p-8 rounded-xl w-[960px] flex flex-col"
-      >
-        <ModalHeader title="Atualizar o Produto" onClose={onClose} />
-        <ProductForm onSubmit={onSubmit} control={control} register={register} update />
-      </Modal>}
+      {status && (
+        <MessageModal
+          message={status.message}
+          icon={status.error ? '/img/error.png' : '/img/check.png'}
+          onClose={status.error ? () => setStatus(undefined) : onClose}
+        />
+      )}
+      {!status && (
+        <Modal
+          onClose={onClose}
+          className='bg-orange-400 p-8 rounded-xl w-[960px] flex flex-col'
+        >
+          <ModalHeader title='Atualizar o Produto' onClose={onClose} />
+          <ProductForm
+            onSubmit={onSubmit}
+            control={control}
+            register={register}
+            update
+          />
+        </Modal>
+      )}
     </>
   );
 }
