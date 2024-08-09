@@ -19,9 +19,6 @@ export function Venda({
       <div className="flex justify-between w-full p-3.5 bg-white rounded-l-lg text-[#797979]">
         <div>
           <p>
-            Cliente: <span className="text-black">{venda.cliente.nome}</span>
-          </p>
-          <p>
             Funcionário: <span className="text-black">{venda.funcionario.nome}</span>
           </p>
         </div>

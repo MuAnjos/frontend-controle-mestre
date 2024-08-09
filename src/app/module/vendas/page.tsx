@@ -1,13 +1,9 @@
 "use client";
-
 import { useState } from "react";
 import { DeleteModal } from "@/components/UI/deleteModal";
-
 import { BottomButton } from "@/components/UI/bottomButton";
-
 import { VendaList } from "@/components/module/venda/vendaList";
 import { ItemVenda } from "@/@types/interfaces/Venda";
-
 import { deleteVenda } from "@/service/vendaHttp";
 import AddVendaModal from "@/components/module/venda/addVendaModal";
 import UpdateVendaModal from "@/components/module/venda/updateVendaModal";
@@ -47,6 +43,7 @@ export default function Vendas() {
         <AddVendaModal onClose={() => setModal(undefined)} />
       )}
 
+     
       <VendaList onDeleteClick={onDeleteClick} onUpdateClick={onUpdateClick} />
 
       <BottomButton

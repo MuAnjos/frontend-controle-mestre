@@ -25,7 +25,11 @@ export async function getVendas() {
     return data;
 }
 // A query precisa retornar a venda, o nome do cliente e o nome do funcionario
-
+export async function getVenda(id:string) {
+    const response = await fetch(`http://localhost:8080/vendas/${id}`);
+    const data = await response.json();
+    return data;
+}
 
 export async function deleteVenda(vendaId: string) {
     const response = await fetch(
@@ -41,8 +45,8 @@ export async function deleteVenda(vendaId: string) {
     return { error: false, message: "Venda deletado com sucesso!" };
 }
 
-export async function updateVenda(updateVenda: ItemVenda) {
-    const response = await fetch("http://localhost:8080/funcionario", {
+export async function updateVenda(updateVenda: CreateVendaReq) {
+    const response = await fetch("http://localhost:8080/vendas", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

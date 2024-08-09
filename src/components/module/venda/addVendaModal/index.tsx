@@ -1,14 +1,11 @@
 import React, { FormEvent, FormEventHandler, useEffect, useState } from "react";
 import { Modal } from "@/components/UI/modal";
-import { FormSubmitHandler, useForm } from "react-hook-form";
 import { MessageModal } from "@/components/UI/messageModal";
 import { ModalHeader } from "@/components/UI/modalHeader";
-import { VendaForm, VendaFormFields } from "../vendaForm";
 import { CreateVendaReq } from "@/@types/interfaces/req/CreateVendaReq";
 import { createVenda } from "@/service/vendaHttp";
 import { ProductItem } from "@/@types/interfaces/Product";
 import { getProducts } from "@/service/productsHttp";
-import { FuncionarioDropdown } from "../funcionarioDropdown";
 import { Funcionario } from "@/@types/interfaces/Funcionario";
 import { getFuncionarios } from "@/service/funcionarioHttp";
 
@@ -39,7 +36,6 @@ export default function AddVendaModal({ onClose }: { onClose: () => void }) {
 
     if (funci !== "") {
       const nVenda: CreateVendaReq = {
-        clienteId: "1",
         funcionarioId: funci,
         produtosId: ([] = cart.map(item => item.id)),
         quantidade: cart.length,
@@ -158,24 +154,31 @@ export default function AddVendaModal({ onClose }: { onClose: () => void }) {
                 </div>
               </div>
               <div className="w-full">
-                <div className="mb-12 bg-orange-500 p-2 rounded-xl">
+                <div className="mb-12 bg-orange-500 p-2 rounded-xl h-40 overflow-y-auto">
                   {cart.map(product => (
                     <div className="flex gap-4">
                       <p className="text-white font-bold text-xl">
-                        {product.codigo}
+                        Código: {product.codigo}
                       </p>
                       <p className="text-white font-bold text-xl">
-                        {product.nome}
+                        Nome: {product.nome}
                       </p>
                       <p className="text-white font-bold text-xl">
-                        {product.preco}
+                        Preço: {product.preco}
                       </p>
                     </div>
                   ))}
+
+                  <p className="text-white font-bold text-xl">
+                    Total:{" "}
+                    {cart
+                      .map(item => parseInt(item.preco))
+                      .reduce((acc, valorAtual) => acc + valorAtual, 0)}
+                  </p>
                 </div>
 
                 <button
-                  className="block w-1/4 bg-orange-500 rounded-xl h-10 "
+                   className="p-4 text-xl font-bold text-white bg-orange-500 rounded-xl hover:bg-orange-600 self-end"
                   type="button"
                   onClick={() => setIsVisible(true)}>
                   Adicionar produto

@@ -6,5 +6,4 @@ export interface CreateVendaReq {
   quantidade: number,
   produtosId: (string | null)[]
   funcionarioId: string,
-  clienteId: string
 }
