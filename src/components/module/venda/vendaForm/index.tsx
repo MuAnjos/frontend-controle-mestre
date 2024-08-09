@@ -11,12 +11,10 @@ import {
 import { ProductItem } from "@/@types/interfaces/Product";
 import { ClienteDropdown } from "../clienteDropdown";
 import { FuncionarioDropdown } from "../funcionarioDropdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "@/components/UI/modal";
 import { ModalHeader } from "@/components/UI/modalHeader";
-import { EstoqueForm } from "../../estoque/estoqueForm";
-import { QuantityPicker } from "../../estoque/estoqueForm/quantityPicker";
-import { ProductsDropdownM } from "./form/productDropdown";
+import { getProducts } from "@/service/productsHttp";
 
 export interface VendaFormFields {
   funcionarioId: string;
@@ -40,6 +38,32 @@ export function VendaForm({
 }: ProductFormProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [products, setProducts] = useState<ProductItem[]>([]);
+  const [cart, setCart] = useState<ProductItem[]>([]);
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(
+    null
+  );
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+    }
+    fetchProducts();
+  }, []);
+
+  const handleAddProduct = () => {
+    if (selectedProductId) {
+      const productToAdd = products.find(
+        product => product.id === selectedProductId
+      );
+
+      if (
+        productToAdd
+      ) {
+        setCart([...cart, productToAdd]);
+      }
+    }
+  };
 
   return (
     <>
@@ -52,7 +76,32 @@ export function VendaForm({
             title="Cadastrar produto"
           />
 
-          <ProductsDropdownM register={register} />
+          <div className="bg-white w-full rounded-lg p-2">
+            <label
+              htmlFor="opcoes"
+              className="block text-sm text-gray-500 font-semibold ml-1">
+              Produto
+            </label>
+            {products.length > 0 && (
+              <select
+                id="opcoes"
+                className="text-lg font-bold outline-none w-full"
+                value={selectedProductId ?? ""}
+                onChange={e => setSelectedProductId(e.target.value)}>
+                <option value="" disabled>
+                  Selecione um produto
+                </option>
+                {products.map((product: ProductItem) => (
+                  <option key={product.id} value={product.id!}>
+                    {product.nome}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
+          <button onClick={handleAddProduct} type="button">
+            Adicionar produto +
+          </button>
         </Modal>
       )}
 
@@ -61,12 +110,14 @@ export function VendaForm({
         onSubmit={onSubmit}
         control={control}>
         <div className="flex w-full gap-4">
-          <ClienteDropdown register={register} update={update} />
           <FuncionarioDropdown register={register} update={update} />
         </div>
         <div className="w-full gap-4">
-          {products.map(product => (
-            <div>
+          <div className="">
+
+          </div>
+          {cart.map(product => (
+            <div className="flex ">
               <p>{product.codigo}</p>
               <p>{product.nome}</p>
               <p>{product.preco}</p>
