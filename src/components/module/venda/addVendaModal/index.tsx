@@ -49,8 +49,8 @@ export default function AddVendaModal({ onClose }: { onClose: () => void }) {
       };
       console.log(nVenda);
 
-      //const response = await createVenda(nVenda);
-      // setStatus(response);
+      const response = await createVenda(nVenda);
+      setStatus(response);
     }
   }
 
